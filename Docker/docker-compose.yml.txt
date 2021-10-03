@@ -1,0 +1,26 @@
+version: '3.4'
+
+networks:
+  lime-network:
+
+services:
+  lime-niginx:
+    image: config/nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - lime-fpm
+    networks:
+      - lime-network
+
+  lime-fpm:
+    image: config/php-fpm
+    depends_on:
+      - lime-niginx
+    networks:
+      - lime-network
+
+  lime-mysql:
+    image: config/mysql
+    environment:
+      - ConnectionString=Server=sqldata;Database=Services.OrderingDb;User Id=sa;Password=[PLACEHOLDER]
