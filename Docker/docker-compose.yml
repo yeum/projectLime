@@ -13,14 +13,14 @@ services:
     networks:
       - lime-network
 
-  lime-fpm:
-    image: config/php-fpm
-    depends_on:
-      - lime-niginx
-    networks:
-      - lime-network
+  # lime-fpm:
+  #   image: config/php-fpm
+  #   depends_on:
+  #     - lime-niginx
+  #   networks:
+  #     - lime-network
 
-  lime-mysql:
-    image: config/mysql
-    environment:
-      - ConnectionString=Server=sqldata;Database=Services.OrderingDb;User Id=sa;Password=[PLACEHOLDER]
+  # lime-mysql:
+  #   image: config/mysql
+  #   environment:
+  #     - ConnectionString=Server=sqldata;Database=Services.OrderingDb;User Id=sa;Password=[PLACEHOLDER]
