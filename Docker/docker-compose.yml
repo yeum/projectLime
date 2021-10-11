@@ -4,8 +4,11 @@ networks:
   lime-network:
 
 services:
-  lime-niginx:
-    image: config/nginx
+  lime-nginx:
+    container_name: lime-nginx
+    build:
+      context: ./config/nginx
+      dockerfile: dockerfile
     ports:
       - "8080:80"
     depends_on:
@@ -13,12 +16,14 @@ services:
     networks:
       - lime-network
 
-  # lime-fpm:
-  #   image: config/php-fpm
-  #   depends_on:
-  #     - lime-niginx
-  #   networks:
-  #     - lime-network
+  lime-fpm:
+    #image: config/php-fpm
+    container_name: lime-fpm
+    image: php:fpm
+    volumes:
+      - ../Application:/var/www/html
+    networks:
+      - lime-network
 
   # lime-mysql:
   #   image: config/mysql
