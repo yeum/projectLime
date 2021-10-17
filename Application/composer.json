@@ -1,0 +1,11 @@
+{
+  "name": "future/future_cpb_web_server",
+  "description": "future cpb web server",
+  "autoload": {
+    "psr-4": {
+    }
+  },
+  "require": {
+      "php": ">=7.4"
+  }
+}

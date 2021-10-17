@@ -15,17 +15,28 @@ services:
       - lime-fpm
     networks:
       - lime-network
-
   lime-fpm:
-    #image: config/php-fpm
     container_name: lime-fpm
-    image: php:fpm
+    build:
+      context: ./config/fpm
+      dockerfile: dockerfile
     volumes:
       - ../Application:/var/www/html
+  #  depends_on:
+  #    - lime-mysql
     networks:
       - lime-network
-
   # lime-mysql:
-  #   image: config/mysql
+  #   image: mysql:8.0
+  #   restart: always
+  #   ports:
+  #     - 3306:3306
   #   environment:
-  #     - ConnectionString=Server=sqldata;Database=Services.OrderingDb;User Id=sa;Password=[PLACEHOLDER]
+  #     #MYSQL_USER: root
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_DATABASE: game
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   volumes:
+  #     - ./config/mysql:/docker-entrypoint-initdb.d
+  #   networks:
+  #     - lime-network
