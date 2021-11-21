@@ -1,4 +1,11 @@
 <?php
+
+use Application\Handler\HandlerMaker;
+use Application\Parser\HttpSerializer;
+use Application\Request\Request;
+use Application\Request\RequestMaker;
+use Application\Response\Response;
+
 echo 'project LIME!'."<br>"."<br>";
 $host = "localhost";
 $user = "root";
@@ -6,22 +13,21 @@ $pw = "password";
 $dbName = "game";
 
 try{
-    $config = include('./config.php');
+    $isSuccess = true;
+    $postData = HttpSerializer::receivePostData();
+    $request = RequestMaker::make($postData);
 
-    $conn = new PDO($config['dsn'], $config['dbUserName'], $config['dbPassword']);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    $handler = HandlerMaker::make($request);
+    $responseParams = $handler->process($request);
+    $response = new Response($request, $responseParams);
 
-    /* SELECT 예제 */
-    $sql = "SELECT * FROM `TB_USER`";
-    $result = $conn->prepare($sql);
-    $result->execute();
-
-    echo "[DB TEST START]"."<br>";
-    while($row = $result->fetch(PDO::FETCH_ASSOC)){
-        echo "user_id: " . $row['user_id'] . ", nickname: " . $row['nickname'] . "<br>";
-    }
 } catch(PDOException $e) {
-    die( 'MySQL 연결실패 : ' . $e->getMessage());
+    if(isset($request) === false || $request instanceof Request === false) {
+        $request = new Request();
+    }
+
+    $isSuccess = false;
+    $response = new Response($request);
+    $response->return_code = 0;
+    $response->return_massage = "FAIL";
 }
-?>

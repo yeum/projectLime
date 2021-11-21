@@ -4,3 +4,4 @@ return array(
     "dbUserName" => "root",
     "dbPassword" => "password"
 );
+?>
