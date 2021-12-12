@@ -3,6 +3,7 @@
   "description": "future cpb web server",
   "autoload": {
     "psr-4": {
+      "Application\\" : "Application/"
     }
   },
   "require": {

@@ -22,7 +22,7 @@ services:
       context: ./config/fpm
       dockerfile: dockerfile
     volumes:
-      - ../Application:/var/www/html
+      - ../:/var/www/html
     depends_on:
       - lime-mysql
     networks:
@@ -30,6 +30,7 @@ services:
 
   lime-mysql:
     image: mysql:8.0
+    container_name: lime-mysql
     ports:
       - 33060:3306
     environment:

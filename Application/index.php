@@ -1,4 +1,5 @@
 <?php
+require './vendor/autoload.php';
 
 use Application\Handler\HandlerMaker;
 use Application\Parser\HttpSerializer;
