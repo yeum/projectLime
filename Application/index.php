@@ -1,11 +1,11 @@
 <?php
-require './vendor/autoload.php';
-
 use Application\Handler\HandlerMaker;
 use Application\Parser\HttpSerializer;
 use Application\Request\Request;
 use Application\Request\RequestMaker;
 use Application\Response\Response;
+
+require_once __DIR__ . '/vendor/autoload.php';
 
 echo 'project LIME!'."<br>"."<br>";
 $host = "localhost";
@@ -32,3 +32,4 @@ try{
     $response->return_code = 0;
     $response->return_massage = "FAIL";
 }
+?>

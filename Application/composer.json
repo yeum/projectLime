@@ -1,9 +1,8 @@
 {
-  "name": "future/future_cpb_web_server",
-  "description": "future cpb web server",
+  "name": "lime/project_lime_server",
   "autoload": {
     "psr-4": {
-      "Application\\" : "Application/"
+      "Application\\": "./"
     }
   },
   "require": {
