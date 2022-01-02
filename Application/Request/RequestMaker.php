@@ -32,10 +32,11 @@ final class RequestMaker
         if(isset($decodeData['api']) === false) {
             throw new Exception("not exist api", 0);
         }
-
+        
         $requestParams = self::getRequestParams($decodeData['api']);
-
         $request = new Request($requestParams);
+        $request->setRequestData($decodeData);
+        
         return $request;
     }
 

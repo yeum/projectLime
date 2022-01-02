@@ -1,6 +1,8 @@
 <?php
 namespace Application\Request;
 
+use Application\Parser\Parameter;
+
 final class Request
 {
     public string $api = "";
@@ -11,6 +13,16 @@ final class Request
     {
         if($params instanceof RequestParams === true) {
             $this->params = $params;
+        }
+    }
+
+    public function setRequestData(array $postData): void
+    {
+        $this->api = Parameter::getStringParam($postData, 'api');
+
+        if(isset($this->params) === true) {
+            $params = Parameter::getArrayParam($postData, 'params');
+            $this->params->setParams($params);
         }
     }
 }
