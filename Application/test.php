@@ -9,4 +9,5 @@ $a += $b;
 
 echo $b;
 
+phpinfo();
 ?>

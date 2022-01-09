@@ -6,6 +6,13 @@ RUN cd /usr/local/etc \
     && { \
     echo; \
     echo 'date.timezone = Asia/Seoul'; \
+    echo; \
+    echo '[xDebug]'; \
+    echo 'xdebug.remote_enable = 1'; \
+    echo 'xdebug.remote_autostart = 1'; \
+    echo 'xdebug.remote_port = 9003'; \
+    echo 'xdebug.remote_connect_back = on'; \
+    echo 'xdebug.idekey = "PHPSTORM"'; \
     } | tee -a php/php.ini
 
 # default application install
