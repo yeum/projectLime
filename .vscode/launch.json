@@ -6,7 +6,7 @@
     "configurations": [
 
         {
-            "name": "Remote XDebugging",
+            "name": "XDebug on Docker",
             "type": "php",
             "request": "launch",
             "port": 9003,
@@ -14,7 +14,7 @@
             "pathMappings": {
                 "/var/www/html": "${workspaceFolder}/Application"
             },
-            "hostname": "localhost"
+            "hostname": "0.0.0.0"
         },
         {
             "name": "Launch currently open script",

@@ -6,13 +6,6 @@ RUN cd /usr/local/etc \
     && { \
     echo; \
     echo 'date.timezone = Asia/Seoul'; \
-    echo; \
-    echo '[xDebug]'; \
-    echo 'xdebug.remote_enable = 1'; \
-    echo 'xdebug.remote_autostart = 1'; \
-    echo 'xdebug.remote_port = 9003'; \
-    echo 'xdebug.remote_connect_back = on'; \
-    echo 'xdebug.idekey = "PHPSTORM"'; \
     } | tee -a php/php.ini
 
 # default application install
@@ -43,6 +36,22 @@ RUN pecl install --onlyreqdeps --nobuild memcached-3.1.3 \
     && make \
     && make install \
     && docker-php-ext-enable memcached
+
+# php-fpm extension override
+RUN cd /usr/local/etc \
+	&& { \
+		echo; \
+		echo 'xdebug.remote_host=host.docker.internal'; \
+		echo 'xdebug.default_enable=1'; \
+		echo 'xdebug.remote_enable=1'; \
+		echo 'xdebug.remote_port=9003'; \
+		echo 'xdebug.remote_autostart=1'; \
+		echo 'xdebug.remote_handler=dbgp'; \
+		echo 'xdebug.remote_connect_back=0'; \
+		echo 'xdebug.remote_log=/usr/local/etc/php/xdebug.log'; \
+		echo 'xdebug.log=/usr/local/etc/php/xdebug.log'; \
+		echo 'xdebug.idekey=VSCODE'; \
+	} | tee -a php/conf.d/docker-php-ext-xdebug.ini
 
 # composer install
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
